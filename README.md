@@ -78,3 +78,69 @@ org.apache.jasper.JasperException: /WEB-INF/jsp/userinfo.jsp (line: 3, column: 6
 </web-app>
 ```
 
+## 4.idea设置tomcat虚拟路径的两种方法
+
+### **1.使用tomcat自己的虚拟路径**
+
+#### **1.1.在tomcat\config\server.xml中配置**
+
+path="/upload" 虚拟路径
+
+E:\photo\upload 图片存放的真实路径
+
+```xml
+<Context  path="/upload"  docBase="E:\photo\upload" reloadable="true"/></Host>
+```
+
+#### 1.2.将Deploy applications configured in Tomcat instance勾上
+
+Configurations.
+
+### 2.用idea设置虚拟路径
+
+#### 2.1.Deploy applications configured in Tomcat instance不要勾上
+
+![https://img-blog.csdn.net/20170416214654676?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQ2hlbmV5NTUwOTk1MzUz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center]()
+
+### 
+
+![https://img-blog.csdn.net/20170416214805755?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQ2hlbmV5NTUwOTk1MzUz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center]()
+
+![https://img-blog.csdn.net/20170416215106381?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQ2hlbmV5NTUwOTk1MzUz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center]()
+
+## 5.No converter found for return value of type解决方法
+
+最近在学习SpringMVC过程中，项目在ajax与后台交互的时候，前台的ajax一直接收不到后台Controller返回来的包装类对象的json数据，spring版本为4.2.4，java对象和json对象转换一直报错：
+
+```shell
+
+```
+
+错误为没有该类型值的转换器，但是@responseBody注解会自动将返回数据封装成json格式，前台接收不到json对象，应该为json包版本冲突问题。 
+
+maven包依赖原本为：
+
+```xml
+
+```
+
+更改为：
+
+```xml
+<dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>2.7.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.7.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.7.4</version>
+    </dependency>
+```
+

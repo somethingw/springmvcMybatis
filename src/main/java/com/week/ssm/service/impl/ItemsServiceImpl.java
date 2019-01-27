@@ -2,6 +2,7 @@ package com.week.ssm.service.impl;
 
 import java.util.List;
 
+import com.week.ssm.exception.CustomException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -40,12 +41,19 @@ public class ItemsServiceImpl implements ItemsService{
 	public ItemsCustom findItemsById(Integer id) throws Exception {
 		
 		Items items = itemsMapper.selectByPrimaryKey(id);
+		if(items==null){
+			throw new CustomException("修改的商品信息不存在！");
+		}
 		//中间对商品信息进行业务处理
 		//....
 		//返回ItemsCustom
-		ItemsCustom itemsCustom = new ItemsCustom();
+		ItemsCustom itemsCustom = null;
 		//将items的属性值拷贝到itemsCustom
-		BeanUtils.copyProperties(items, itemsCustom);
+		if(items!=null){
+			itemsCustom = new ItemsCustom();
+			BeanUtils.copyProperties(items, itemsCustom);
+		}
+
 		
 		return itemsCustom;
 		

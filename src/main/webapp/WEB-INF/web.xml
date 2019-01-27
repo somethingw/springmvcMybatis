@@ -36,6 +36,16 @@
             <param-value>classpath:spring/springmvc.xml</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>springmvc_rest</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--配置springmvc加载的配置文件（处理器，适配器等等）,
+        如果不配置它，默认加载的是/WEB-INF/servlet名称-servlet.xml(springmvc-servlet.xml)-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/springmvc.xml</param-value>
+        </init-param>
+    </servlet>
     <servlet-mapping>
         <servlet-name>springmvc</servlet-name>
         <!--第一种：*.action,访问以.action结尾的由DispatcherServlet来解析
@@ -44,5 +54,13 @@
             第三种：/*，这种配置不对，使用这种配置，最终要转发到一个jsp页面时，仍然会由Dispa..解析jsp,不能根据jsp页面找到handler，会报错-->
         <url-pattern>*.action</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>springmvc_rest</servlet-name>
+        <!--第一种：*.action,访问以.action结尾的由DispatcherServlet来解析
+            第二种：/，所有的地址都由DispatcherServlet来解析,对于静态文件不让它解析
+            使用此种方式可以实现RESTful风格的URL
+            第三种：/*，这种配置不对，使用这种配置，最终要转发到一个jsp页面时，仍然会由Dispa..解析jsp,不能根据jsp页面找到handler，会报错-->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
 </web-app>
